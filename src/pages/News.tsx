@@ -7,7 +7,7 @@ interface NewsArticle {
   title: string;
   excerpt: string;
   date: string;
-  category: 'launch' | 'technology' | 'partnership' | 'research';
+  category: 'company' | 'technology';
   featured: boolean;
   image: string;
   content?: string;
@@ -23,9 +23,9 @@ const News: React.FC = () => {
       title: '8Robotics Officially Launches: Pioneering the Next Generation of Humanoid Robotics',
       excerpt: 'Today marks a pivotal moment in the robotics industry as 8Robotics officially announces its launch, bringing together world-class AI researchers and robotics engineers.',
       date: 'January 15, 2025',
-      category: 'launch',
+      category: 'company',
       featured: true,
-      image: 'https://images.pexels.com/photos/8566526/pexels-photo-8566526.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+      image: 'pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
       content: `Today marks a pivotal moment in the robotics industry as 8Robotics officially announces its launch, bringing together world-class AI researchers, robotics engineers, and visionary leaders to revolutionize humanoid robotics technology.
 
 Founded by a team of industry veterans with decades of combined experience in artificial intelligence and robotics, 8Robotics is positioned to address the growing demand for intelligent, human-like robots across healthcare, education, logistics, and personal assistance sectors.
@@ -35,76 +35,34 @@ Founded by a team of industry veterans with decades of combined experience in ar
 The company's initial focus will be on developing advanced AI-driven control systems, natural language processing capabilities, and sophisticated sensor integration that enables humanoid robots to understand and respond to complex human environments with unprecedented accuracy and empathy.`
     },
     {
-      id: '2',
-      title: 'Breakthrough in Neural Network Architecture for Humanoid Motion Control',
-      excerpt: 'Our research team has developed a revolutionary neural network architecture that enables more natural and fluid movement in humanoid robots.',
-      date: 'Coming Soon',
-      category: 'technology',
-      featured: false,
-      image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
-    },
-    {
-      id: '3',
-      title: 'Strategic Partnership with Leading Healthcare Institutions',
-      excerpt: 'Announcing partnerships with top medical centers to deploy humanoid robots in patient care and medical assistance applications.',
-      date: 'Coming Soon',
-      category: 'partnership',
-      featured: false,
-      image: 'https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
-    },
-    {
       id: '4',
-      title: 'First Prototype Demonstration Scheduled for Q3 2025',
+      title: 'First Prototype Demonstration Scheduled for Q4 2025',
       excerpt: 'Get ready for the first public demonstration of our humanoid robot prototype, showcasing breakthrough capabilities in AI and robotics.',
       date: 'Coming Soon',
-      category: 'research',
+      category: 'company',
       featured: false,
-      image: 'https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
+      image: 'pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
     },
-    {
-      id: '5',
-      title: 'Advanced AI Vision System Enables Real-Time Object Recognition',
-      excerpt: 'Our latest computer vision breakthrough allows humanoid robots to identify and interact with objects in complex environments with 99.7% accuracy.',
-      date: 'Coming Soon',
-      category: 'technology',
-      featured: false,
-      image: 'https://images.pexels.com/photos/8386422/pexels-photo-8386422.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
-    },
-    {
-      id: '6',
-      title: 'Educational Robotics Initiative Launches in Partnership with Universities',
-      excerpt: 'Collaborating with top universities to integrate humanoid robots into STEM education programs, revolutionizing how students learn about technology.',
-      date: 'Coming Soon',
-      category: 'partnership',
-      featured: false,
-      image: 'https://images.pexels.com/photos/8386427/pexels-photo-8386427.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
-    }
   ];
 
   const categories = [
     { id: 'all', name: 'All News', icon: Filter },
-    { id: 'launch', name: 'Company', icon: Rocket },
+    { id: 'company', name: 'Company', icon: Rocket },
     { id: 'technology', name: 'Technology', icon: Brain },
-    { id: 'partnership', name: 'Partnerships', icon: Users },
-    { id: 'research', name: 'Research', icon: Zap }
   ];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'launch': return Rocket;
+      case 'company': return Rocket;
       case 'technology': return Brain;
-      case 'partnership': return Users;
-      case 'research': return Zap;
       default: return Filter;
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'launch': return 'from-cyan-400/20 to-blue-500/20 border-cyan-400/30';
+      case 'company': return 'from-cyan-400/20 to-blue-500/20 border-cyan-400/30';
       case 'technology': return 'from-purple-400/20 to-pink-500/20 border-purple-400/30';
-      case 'partnership': return 'from-green-400/20 to-emerald-500/20 border-green-400/30';
-      case 'research': return 'from-orange-400/20 to-red-500/20 border-orange-400/30';
       default: return 'from-gray-400/20 to-gray-500/20 border-gray-400/30';
     }
   };

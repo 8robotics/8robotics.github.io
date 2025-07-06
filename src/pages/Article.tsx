@@ -65,14 +65,14 @@ The potential applications for 8Robotics' humanoid robots span multiple industri
 
 As we embark on this exciting journey, 8Robotics is committed to responsible innovation that prioritizes human welfare and ethical considerations. We believe that the future of robotics lies not in replacing human workers, but in augmenting human capabilities and creating new opportunities for collaboration between humans and machines.
 
-Our team is already working on the first prototype demonstrations, scheduled for Q3 2025, which will showcase the breakthrough capabilities we've been developing. We're also actively seeking partnerships with leading institutions and organizations that share our vision for a future where humanoid robots enhance human potential.
+Our team is already working on the first prototype demonstrations, scheduled for Q4 2025, which will showcase the breakthrough capabilities we've been developing. We're also actively seeking partnerships with leading institutions and organizations that share our vision for a future where humanoid robots enhance human potential.
 
 The launch of 8Robotics represents more than just a new company entering the market – it's the beginning of a new era in human-robot collaboration that will transform how we work, learn, and live.`,
     date: 'January 15, 2025',
     readTime: '8 min read',
     author: '8Robotics Team',
     category: 'Company Launch',
-    image: 'https://images.pexels.com/photos/8566526/pexels-photo-8566526.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+    image: '/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
     tags: ['Launch', 'AI', 'Robotics', 'Innovation', 'Technology']
   };
 
@@ -208,7 +208,7 @@ The launch of 8Robotics represents more than just a new company entering the mar
           </div>
         </div>
 
-        {/* Related Articles */}
+        {/* Related Articles
         <div className="mt-16 pt-8 border-t border-gray-800/50">
           <h3 className="text-2xl font-bold text-white mb-8">Related Articles</h3>
           <div className="grid md:grid-cols-2 gap-6">
@@ -249,7 +249,7 @@ The launch of 8Robotics represents more than just a new company entering the mar
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
