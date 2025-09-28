@@ -1,183 +1,296 @@
-import React from 'react';
-import { Users, Mail, Rocket, Code, Cog, Lightbulb } from 'lucide-react';
+import React from "react";
+import Layout from '@/Layout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ShaderAnimation } from "@/components/ui/shader-lines";
+import { MapPin, Clock, Users, Lightbulb, Rocket, Heart } from 'lucide-react';
 
-const Careers: React.FC = () => {
+interface JobListing {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: 'Full-time' | 'Part-time' | 'Contract';
+  experience: string;
+  description: string;
+  requirements: string[];
+}
+
+const Careers = () => {
+  const jobs: JobListing[] = [
+    {
+      id: '2',
+      title: 'Senior Mechanical Engineer',
+      department: 'Mechanics',
+      location: 'Silicon Valley, CA',
+      type: 'Full-time',
+      experience: '5+ years',
+      description: 'Design and develop advanced mechanical systems for humanoid robots, including actuators, joints, and structural components.',
+      requirements: [
+        'MS/PhD in Mechanical Engineering or related field',
+        'Experience with robotic mechanical design',
+        'Proficiency in CAD software (SolidWorks, Fusion 360)',
+        'Knowledge of materials science and manufacturing processes'
+      ]
+    },
+    {
+      id: '1',
+      title: 'Electronics Hardware Engineer',
+      department: 'Electronics',
+      location: 'Silicon Valley, CA',
+      type: 'Full-time',
+      experience: '3+ years',
+      description: 'Develop custom electronics boards, motor drivers, and sensor integration systems for advanced robotics applications.',
+      requirements: [
+        'BS/MS in Electrical Engineering',
+        'Experience with PCB design and embedded systems',
+        'Knowledge of power electronics and motor control',
+        'Familiarity with communication protocols (CAN, UART, SPI)'
+      ]
+    },
+    {
+      id: '3',
+      title: 'AI/ML Research Scientist',
+      department: 'AI & Control',
+      location: 'Silicon Valley, CA',
+      type: 'Full-time',
+      experience: '4+ years',
+      description: 'Research and implement cutting-edge AI algorithms for robot perception, planning, and control systems.',
+      requirements: [
+        'MS/PhD in Computer Science, Robotics, or related field',
+  'Strong background in machine learning and deep learning',
+  'Experience with reinforcement learning (RL)',
+  'Simulation experience (Isaac Sim, MuJoCo)',
+  'Proficiency in Python, PyTorch/TensorFlow'
+      ]
+    },
+    {
+      id: '4',
+      title: 'Control Systems Engineer',
+      department: 'AI & Control',
+      location: 'Silicon Valley, CA',
+      type: 'Full-time',
+      experience: '3+ years',
+      description: 'Develop and implement advanced control algorithms for dynamic robot motion and stability systems.',
+      requirements: [
+        'MS in Control Systems, Robotics, or related field',
+        'Experience with real-time control systems',
+  'Knowledge of dynamics and kinematics',
+  'Simulation experience (Isaac Sim, MuJoCo)',
+  'Proficiency in MATLAB/Simulink and C++'
+      ]
+    },
+    {
+      id: '5',
+      title: 'Robotics Software Engineer',
+      department: 'Software',
+      location: 'Silicon Valley, CA',
+      type: 'Full-time',
+      experience: '2+ years',
+      description: 'Build robust software infrastructure for robot operation, including real-time systems and safety protocols.',
+      requirements: [
+        'BS/MS in Computer Science or related field',
+        'Strong C++ and Python programming skills',
+        'Experience with ROS or similar robotics frameworks',
+        'Knowledge of real-time systems and embedded programming'
+      ]
+    },
+    {
+      id: '6',
+      title: 'Robotics Intern',
+      department: 'Various',
+      location: 'Silicon Valley, CA',
+      type: 'Part-time',
+      experience: 'Student',
+      description: 'Join our team as an intern and contribute to cutting-edge robotics research across multiple disciplines.',
+      requirements: [
+        'Currently pursuing BS/MS in relevant field',
+        'Strong academic performance',
+        'Passion for robotics and innovation',
+        'Programming experience preferred'
+      ]
+    }
+  ];
+
+  const cultureValues = [
+    {
+      icon: Lightbulb,
+      title: 'Innovation First',
+      description: 'We encourage creative thinking and bold approaches to solving complex problems.'
+    },
+    {
+      icon: Users,
+      title: 'Collaborative Spirit',
+      description: 'Cross-functional teams working together to achieve breakthrough results.'
+    },
+    {
+      icon: Rocket,
+      title: 'Rapid Growth',
+      description: 'Fast-paced environment with opportunities for professional development.'
+    },
+    {
+      icon: Heart,
+      title: 'Impact Driven',
+      description: 'Building technology that makes a meaningful difference in the world.'
+    }
+  ];
+
+  const getDepartmentColor = () => {
+    return 'bg-primary/10 text-primary';
+  };
+
   return (
-    <div className="py-20 bg-gray-900 relative overflow-hidden">
-      {/* Page Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"></div>
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/3 -right-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute -bottom-40 left-1/4 w-64 h-64 bg-purple-500/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-cyan-400/30 rounded-full animate-pulse"></div>
-        <div className="absolute top-3/4 left-1/3 w-1 h-1 bg-blue-400/40 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-cyan-300/20 rounded-full animate-pulse delay-2000"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <div className="bg-cyan-400/10 backdrop-blur-sm border border-cyan-400/20 rounded-full px-4 py-2">
-              <span className="text-cyan-400 text-xs font-medium uppercase tracking-wider">
-                Join Our Team
-              </span>
-            </div>
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-            Join the 8Robotics Revolution
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            We're seeking passionate innovators to shape the future of humanoid robotics. 
-            Be part of a team that's building tomorrow's intelligent companions.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative z-10">
-              <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                <Code className="h-8 w-8 text-cyan-400" />
+    <Layout>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+          <section className="py-20 bg-gradient-tech">
+            <div className="container mx-auto px-4">
+              <div className="relative flex h-[300px] md:h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl mb-8">
+                <ShaderAnimation colorScheme="orange-blue" />
+                <span className="pointer-events-none z-10 text-center text-5xl md:text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white drop-shadow-lg">
+                  Join Our Mission
+                </span>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-4">AI Engineers</h3>
-              <p className="text-gray-300 mb-4">
-                Develop cutting-edge machine learning algorithms and neural networks that power 
-                our humanoid robots' decision-making capabilities.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
+                Help us build the future of humanoid robotics. We're looking for passionate 
+                individuals who want to push the boundaries of what's possible.
               </p>
-              <ul className="text-gray-300 text-sm space-y-2">
-                <li>• Deep learning expertise</li>
-                <li>• Computer vision experience</li>
-                <li>• Natural language processing</li>
-              </ul>
             </div>
-          </div>
+          </section>
 
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative z-10">
-              <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                <Cog className="h-8 w-8 text-cyan-400" />
+        {/* Culture Section */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Why Work With Us?
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Join a team of world-class engineers and researchers working on the 
+                most exciting challenges in robotics.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {cultureValues.map((value, index) => (
+                <Card key={index} className="text-center hover-lift bg-muted/30">
+                  <CardHeader>
+                    <value.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <CardTitle className="text-xl">{value.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{value.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="bg-card rounded-2xl p-8 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4 text-center">Our Working Culture</h3>
+              <p className="text-lg text-muted-foreground text-center mb-8">
+                At 8robotics, we believe that the best work happens when brilliant minds 
+                collaborate in an environment that values both innovation and work-life balance.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <h4 className="font-semibold mb-2">Flexible Work</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Hybrid work options with flexible hours
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Home Office Setup</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Support to create your ideal workspace
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Equity Participation</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Share in the company's growth
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Robotics Engineers</h3>
-              <p className="text-gray-300 mb-4">
-                Design and build the mechanical systems, sensors, and control systems that 
-                bring our humanoid robots to life.
-              </p>
-              <ul className="text-gray-300 text-sm space-y-2">
-                <li>• Mechanical engineering background</li>
-                <li>• Control systems expertise</li>
-                <li>• Sensor integration experience</li>
-              </ul>
             </div>
           </div>
+        </section>
 
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative z-10">
-              <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                <Lightbulb className="h-8 w-8 text-cyan-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Research Scientists</h3>
-              <p className="text-gray-300 mb-4">
-                Push the boundaries of robotics research, exploring new paradigms in 
-                human-robot interaction and autonomous systems.
-              </p>
-              <ul className="text-gray-300 text-sm space-y-2">
-                <li>• PhD in relevant field</li>
-                <li>• Published research experience</li>
-                <li>• Innovation mindset</li>
-              </ul>
+        {/* Open Positions */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Open Positions</h2>
+            
+            <div className="space-y-8 max-w-4xl mx-auto">
+              {jobs.map((job) => (
+                <Card key={job.id} className="group bg-white/80 border-0 shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-2xl overflow-hidden">
+                  <CardHeader className="p-6 pb-0 flex flex-col gap-2">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Badge className={getDepartmentColor() + ' text-xs px-3 py-1 rounded-full font-semibold'}>
+                        {job.department}
+                      </Badge>
+                      <Badge variant="outline" className="flex items-center gap-1 text-xs px-3 py-1 rounded-full font-semibold">
+                        <Clock className="w-3 h-3" />
+                        {job.type}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs px-3 py-1 rounded-full font-semibold">
+                        {job.experience}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors mb-2">
+                      {job.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6 pt-0">
+                    <p className="text-muted-foreground mb-4 text-base leading-relaxed">{job.description}</p>
+                    <div className="bg-muted/20 rounded-xl p-4 mb-4">
+                      <h4 className="font-semibold mb-2 text-sm text-primary">
+                        {job.title === 'Robotics Intern' ? 'Good to Have' : 'Key Requirements'}
+                      </h4>
+                      <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                        {job.requirements.map((req, index) => (
+                          <li key={index}>{req}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <Button className="w-full bg-primary text-white font-bold py-3 rounded-xl mt-2 shadow-lg hover:bg-orange-600 transition-colors">
+                      Apply Now
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="bg-gradient-to-r from-cyan-400/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-cyan-400/20 relative overflow-hidden mb-16">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5"></div>
-          <div className="relative z-10 text-center">
-            <div className="bg-cyan-400/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Users className="h-10 w-10 text-cyan-400" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-              Ready to Build the Future?
+        {/* CTA Section */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Don't See Your Role?
             </h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              We're always looking for talented individuals who share our passion for 
-              advancing humanoid robotics. Join us in creating intelligent systems that 
-              will transform industries and improve lives.
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              We're always looking for exceptional talent. If you're passionate about 
+              robotics and want to make an impact, we'd love to hear from you.
             </p>
-            <a
-              href="mailto:info@8robotics.tech"
-              className="inline-flex items-center space-x-2 bg-cyan-400 text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-cyan-300 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/25"
-            >
-              <Mail className="h-5 w-5" />
-              <span>Send Your Resume</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5 opacity-50"></div>
-          <div className="relative z-10">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">
-              Why Choose 8Robotics?
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <div className="flex items-start space-x-3 mb-6">
-                  <div className="bg-cyan-400/10 w-8 h-8 rounded-full flex items-center justify-center mt-1">
-                    <Rocket className="h-4 w-4 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-cyan-400 mb-2">Cutting-Edge Technology</h3>
-                    <p className="text-gray-300">
-                      Work with the latest advancements in AI, robotics, and autonomous systems.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-cyan-400/10 w-8 h-8 rounded-full flex items-center justify-center mt-1">
-                    <Users className="h-4 w-4 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-cyan-400 mb-2">Collaborative Environment</h3>
-                    <p className="text-gray-300">
-                      Join a team of world-class engineers and researchers who value innovation and teamwork.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-start space-x-3 mb-6">
-                  <div className="bg-cyan-400/10 w-8 h-8 rounded-full flex items-center justify-center mt-1">
-                    <Lightbulb className="h-4 w-4 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-cyan-400 mb-2">Global Impact</h3>
-                    <p className="text-gray-300">
-                      Be part of projects that will transform healthcare, education, and beyond.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-cyan-400/10 w-8 h-8 rounded-full flex items-center justify-center mt-1">
-                    <Code className="h-4 w-4 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-cyan-400 mb-2">Growth Opportunities</h3>
-                    <p className="text-gray-300">
-                      Advance your career while contributing to groundbreaking technological developments.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-orange-600 transition-colors"
+              >
+                Send Us Your Resume
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+              >
+                Learn More About Us
+              </Button>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,25 +1,34 @@
-import React from 'react';
-import { Mail } from 'lucide-react';
 
-const Footer: React.FC = () => {
+import { Github, Mail } from "lucide-react";
+import { Footer as UIFooter } from "@/components/ui/footer";
+
+function Footer() {
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <p className="text-cyan-400 text-lg font-medium mb-4">
-            Made with ❤️ for the Future of Robotics
-          </p>
-          <a
-            href="mailto:info@8robotics.tech"
-            className="inline-flex items-center space-x-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200"
-          >
-            <Mail className="h-5 w-5" />
-            <span>info@8robotics.tech</span>
-          </a>
-        </div>
+      <div className="w-full">
+        <UIFooter
+          logo={<img src="/logo.svg" alt="8Robotics Logo" className="h-10 w-10" />}
+          brandName="8Robotics"
+          socialLinks={[
+            {
+              icon: <Mail className="h-5 w-5" />,
+              href: "mailto:info@8robotics.tech",
+              label: "Email",
+            },
+          ]}
+          mainLinks={[
+            { href: "/technology", label: "Technology" },
+            { href: "/about", label: "About" },
+            { href: "/news", label: "News" },
+            { href: "/contact", label: "Contact" },
+          ]}
+          legalLinks={[]}
+          copyright={{
+            text: "© 2025 8Robotics",
+            license: "All rights reserved",
+          }}
+        />
       </div>
-    </footer>
   );
-};
+}
 
 export default Footer;

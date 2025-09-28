@@ -1,143 +1,137 @@
-import React from 'react';
-import { Bot, Brain, Heart, Target } from 'lucide-react';
+import React from "react";
+import { ShaderAnimation } from "@/components/ui/shader-lines";
+import Layout from '@/Layout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Shield, Target, Users, Lightbulb } from 'lucide-react';
 
-const About: React.FC = () => {
+const About = () => {
+  const values = [
+    {
+      icon: Lightbulb,
+      title: 'Innovation',
+      description: "Pushing the boundaries of what's possible in robotics through creative engineering and cutting-edge research."
+    },
+    {
+      icon: Shield,
+      title: 'Safety',
+      description: 'Prioritizing human safety in every design decision, with fail-safe systems and rigorous testing protocols.'
+    },
+    {
+      icon: Target,
+      title: 'Reliability',
+      description: 'Building robust systems that perform consistently in real-world environments with minimal maintenance.'
+    },
+    {
+      icon: Users,
+      title: 'Transparency',
+      description: 'Open communication with partners, investors, and the public about our progress and challenges.'
+    }
+  ];
+
   return (
-    <div className="py-20 bg-gray-900 relative overflow-hidden">
-      {/* Page Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"></div>
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 -left-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute -bottom-40 right-1/4 w-64 h-64 bg-purple-500/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <div className="bg-cyan-400/10 backdrop-blur-sm border border-cyan-400/20 rounded-full px-4 py-2">
-              <span className="text-cyan-400 text-xs font-medium uppercase tracking-wider">
-                About 8Robotics
+    <Layout>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-tech">
+          <div className="container mx-auto px-4">
+            <div className="relative flex h-[300px] md:h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl mb-8">
+              <ShaderAnimation />
+              <span className="pointer-events-none z-10 text-center text-5xl md:text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white drop-shadow-lg">
+                About 8robotics
               </span>
             </div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
+              Founded in 2025 by experienced legged robot researchers, we're dedicated to 
+              advancing humanoid robotics through innovative engineering and responsible development.
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-            About 8Robotics
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            We're building the future of humanoid robotics, one intelligent system at a time.
-          </p>
-        </div>
+        </section>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="relative">
-            <div className="absolute -top-4 -left-4 w-full h-full bg-cyan-400/5 rounded-2xl blur-xl"></div>
-            <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-                Our Story
+        {/* Company Story */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Our Story</h2>
+              <div className="prose prose-lg max-w-none text-muted-foreground">
+                <p className="text-lg leading-relaxed mb-6">
+                  8robotics was born from a simple yet ambitious vision: to create humanoid robots 
+                  that seamlessly integrate into human environments, enhancing our capabilities while 
+                  maintaining the highest standards of safety and reliability.
+                </p>
+                <p className="text-lg leading-relaxed mb-6">
+                  Our founding team brings together decades of experience in legged robotics, 
+                  having worked on some of the most advanced robotic systems in the world. 
+                  We've seen the challenges and opportunities in this field, and we're committed 
+                  to solving the hardest problems through innovative engineering and thoughtful design.
+                </p>
+                <p className="text-lg leading-relaxed">
+                  Today, we're building the next generation of humanoid robots that will work 
+                  alongside humans in homes, offices, and industrial environments. Our approach 
+                  combines cutting-edge AI with robust mechanical engineering to create machines 
+                  that are not just intelligent, but truly helpful.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mission & Values */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Our Mission & Values
               </h2>
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Founded in 2025, 8Robotics emerged from a vision to create humanoid robots that don't just perform tasks, 
-                but truly understand and interact with the world around them. Our founders, veterans of the AI and robotics 
-                industries, recognized the immense potential of combining advanced artificial intelligence with sophisticated 
-                mechanical engineering.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                We believe that the future of robotics lies not in replacing humans, but in augmenting human capabilities 
-                and creating intelligent partners that can work alongside us to solve complex challenges across multiple industries.
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Guided by principles that ensure we build technology that benefits humanity.
               </p>
             </div>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-6">
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Bot className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Advanced AI</h3>
-                <p className="text-gray-300 text-sm">Next-generation machine learning</p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Brain className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Smart Learning</h3>
-                <p className="text-gray-300 text-sm">Adaptive neural networks</p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Heart className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Human-Centered</h3>
-                <p className="text-gray-300 text-sm">Designed for collaboration</p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 text-center hover:border-cyan-400/30 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Target className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Precision Focus</h3>
-                <p className="text-gray-300 text-sm">Purpose-built solutions</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5 opacity-50"></div>
-          <div className="relative z-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center">
-              Our Core Values
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center group">
-                <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Brain className="h-8 w-8 text-cyan-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-cyan-400 mb-4">Innovation</h3>
-                <p className="text-gray-300">
-                  We push the boundaries of what's possible, constantly exploring new technologies 
-                  and methodologies to advance the field of robotics.
-                </p>
-              </div>
-              <div className="text-center group">
-                <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Heart className="h-8 w-8 text-cyan-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-cyan-400 mb-4">Responsibility</h3>
-                <p className="text-gray-300">
-                  We develop technology responsibly, considering the ethical implications and 
-                  societal impact of our innovations.
-                </p>
-              </div>
-              <div className="text-center group">
-                <div className="bg-cyan-400/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Target className="h-8 w-8 text-cyan-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-cyan-400 mb-4">Collaboration</h3>
-                <p className="text-gray-300">
-                  We believe in the power of human-robot collaboration to create solutions 
-                  that neither could achieve alone.
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {values.map((value, index) => (
+                <Card key={index} className="text-center hover-lift">
+                  <CardHeader>
+                    <value.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <CardTitle className="text-xl">{value.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{value.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mb-16">
+              <div className="bg-card rounded-2xl p-8 max-w-3xl mx-auto">
+                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                <p className="text-lg text-muted-foreground">
+                  To democratize access to advanced robotics by creating humanoid robots that are 
+                  safe, reliable, and truly useful in everyday life. We believe that the future of 
+                  human-robot collaboration depends on building trust through transparency, safety, 
+                  and genuine utility.
                 </p>
               </div>
             </div>
+
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-primary to-orange-700 rounded-2xl p-8 max-w-3xl mx-auto text-white shadow-xl">
+                <h3 className="text-2xl font-bold mb-4 drop-shadow-lg">Ready to Learn More?</h3>
+                <p className="text-lg mb-6 opacity-95 drop-shadow">
+                  Interested in partnerships, investment opportunities, or learning more about our technology? <br />
+                  We'd love to connect with you.
+                </p>
+                <a 
+                  href="/contact" 
+                  className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-orange-100 transition-colors border-2 border-white"
+                >
+                  Get in Touch
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </Layout>
   );
 };
 

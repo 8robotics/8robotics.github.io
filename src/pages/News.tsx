@@ -1,302 +1,215 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, ArrowRight, Rocket, Brain, Users, Zap, Filter, Search } from 'lucide-react';
+import { ShaderAnimation } from "@/components/ui/shader-lines";
+import React from "react";
+import Layout from '@/Layout';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Calendar, ArrowRight, ExternalLink } from 'lucide-react';
 
 interface NewsArticle {
   id: string;
   title: string;
-  excerpt: string;
+  summary: string;
   date: string;
-  category: 'company' | 'technology';
+  category: string;
   featured: boolean;
-  image: string;
-  content?: string;
+  readTime: string;
+  image?: string;
 }
 
-const News: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const newsArticles: NewsArticle[] = [
+const News = () => {
+  const articles: NewsArticle[] = [
     {
       id: '1',
       title: '8Robotics Officially Launches: Pioneering the Next Generation of Humanoid Robotics',
-      excerpt: 'Today marks a pivotal moment in the robotics industry as 8Robotics officially announces its launch, bringing together world-class AI researchers and robotics engineers.',
-      date: 'January 15, 2025',
-      category: 'company',
+      summary: 'Today marks a pivotal moment in the robotics industry as 8Robotics officially announces its launch, bringing together world-class AI researchers and robotics engineers.',
+      date: 'May 22, 2025',
+      category: 'Company News',
       featured: true,
-      image: 'pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
-      content: `Today marks a pivotal moment in the robotics industry as 8Robotics officially announces its launch, bringing together world-class AI researchers, robotics engineers, and visionary leaders to revolutionize humanoid robotics technology.
-
-Founded by a team of industry veterans with decades of combined experience in artificial intelligence and robotics, 8Robotics is positioned to address the growing demand for intelligent, human-like robots across healthcare, education, logistics, and personal assistance sectors.
-
-"We're not just building robots; we're creating intelligent partners that will seamlessly integrate into human society," said the founding team. "Our vision extends beyond automation to true collaboration between humans and humanoid robots."
-
-The company's initial focus will be on developing advanced AI-driven control systems, natural language processing capabilities, and sophisticated sensor integration that enables humanoid robots to understand and respond to complex human environments with unprecedented accuracy and empathy.`
+      readTime: '3 min read',
+      image: '/logo.svg',
     },
     {
       id: '4',
       title: 'First Prototype Demonstration Scheduled for Q4 2025',
-      excerpt: 'Get ready for the first public demonstration of our humanoid robot prototype, showcasing breakthrough capabilities in AI and robotics.',
-      date: 'Coming Soon',
-      category: 'company',
-      featured: false,
-      image: 'pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
+      summary: 'Get ready for the first public demonstration of our humanoid robot prototype, showcasing breakthrough capabilities in AI and robotics.',
+      date: 'June 1, 2025',
+      category: 'Company News',
+      featured: true,
+      readTime: '2 min read',
+      image: '/secret_robot.png?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
     },
   ];
 
-  const categories = [
-    { id: 'all', name: 'All News', icon: Filter },
-    { id: 'company', name: 'Company', icon: Rocket },
-    { id: 'technology', name: 'Technology', icon: Brain },
-  ];
+  const featuredArticles = articles.filter(article => article.featured).slice(0, 2);
+  const regularArticles = articles; // Show all articles, including featured
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'company': return Rocket;
-      case 'technology': return Brain;
-      default: return Filter;
-    }
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'company': return 'from-cyan-400/20 to-blue-500/20 border-cyan-400/30';
-      case 'technology': return 'from-purple-400/20 to-pink-500/20 border-purple-400/30';
-      default: return 'from-gray-400/20 to-gray-500/20 border-gray-400/30';
+      case 'Technology':
+        return 'bg-primary/10 text-primary hover:bg-primary/20';
+      case 'Company News':
+        return 'bg-blue-100 text-blue-600 font-bold hover:bg-blue-200';
+      case 'Partnerships':
+        return 'bg-green-100 text-green-600 font-bold hover:bg-green-200';
+      case 'Media':
+        return 'bg-purple-100 text-purple-700 hover:bg-purple-200';
+      default:
+        return 'bg-muted text-muted-foreground';
     }
   };
 
-  const filteredArticles = newsArticles.filter(article => {
-    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const featuredArticle = newsArticles.find(article => article.featured);
-  const regularArticles = filteredArticles.filter(article => !article.featured);
-
   return (
-    <div className="py-20 bg-gray-900 min-h-screen relative overflow-hidden">
-      {/* Page Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"></div>
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/3 -left-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute -bottom-40 right-1/4 w-64 h-64 bg-purple-500/3 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400/30 rounded-full animate-pulse"></div>
-        <div className="absolute top-2/3 right-1/3 w-1 h-1 bg-blue-400/40 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/3 w-1.5 h-1.5 bg-cyan-300/20 rounded-full animate-pulse delay-2000"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <div className="bg-cyan-400/10 backdrop-blur-sm border border-cyan-400/20 rounded-full px-4 py-2">
-              <span className="text-cyan-400 text-xs font-medium uppercase tracking-wider">
-                News & Updates
-              </span>
-            </div>
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-            Latest News & Updates
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Stay informed about our latest breakthroughs, partnerships, and innovations in humanoid robotics.
-          </p>
-        </div>
+    <Layout>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+            <section className="py-20 bg-gradient-tech">
+              <div className="container mx-auto px-4">
+                <div className="relative flex h-[300px] md:h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-xl mb-8">
+                  <ShaderAnimation colorScheme="green-blue" />
+                  <span className="pointer-events-none z-10 text-center text-5xl md:text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white drop-shadow-lg">
+                    Latest News
+                  </span>
+                </div>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
+                  Stay updated with our latest developments, milestones, and insights 
+                  in the world of humanoid robotics.
+                </p>
+              </div>
+            </section>
 
-        {/* Search and Filter */}
-        <div className="mb-12">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative w-full lg:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search news..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => {
-                const IconComponent = category.icon;
-                return (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
-                      selectedCategory === category.id
-                        ? 'bg-cyan-400 text-gray-900'
-                        : 'bg-gray-800/50 border border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:text-cyan-400 hover:border-cyan-400/30'
-                    }`}
-                  >
-                    <IconComponent className="h-4 w-4" />
-                    <span>{category.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Featured Article */}
-        {featuredArticle && (selectedCategory === 'all' || selectedCategory === featuredArticle.category) && (
-          <div className="mb-16">
-            <Link to={`/news/${featuredArticle.id}`}>
-              <div className={`bg-gradient-to-r ${getCategoryColor(featuredArticle.category)} backdrop-blur-sm rounded-2xl overflow-hidden border hover:scale-[1.02] transition-all duration-300 cursor-pointer relative`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5"></div>
-                <div className="grid lg:grid-cols-2 gap-8 relative z-10">
-                  <div className="relative h-64 lg:h-full">
-                    <img
-                      src={featuredArticle.image}
-                      alt={featuredArticle.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
-                  </div>
-                  <div className="p-8 md:p-12">
-                    <div className="flex items-center mb-6">
-                      {React.createElement(getCategoryIcon(featuredArticle.category), {
-                        className: "h-8 w-8 text-cyan-400 mr-3"
-                      })}
-                      <div>
-                        <div className="flex items-center mb-2">
-                          <Calendar className="h-5 w-5 text-cyan-400 mr-2" />
-                          <span className="text-cyan-400 text-sm font-medium">{featuredArticle.date}</span>
+        {/* Featured Articles (show two) */}
+        {featuredArticles.length > 0 && (
+          <section className="py-20">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <Badge className="mb-4 bg-accent/10 text-accent hover:bg-accent/20">
+                  Featured Stories
+                </Badge>
+                <div className="grid md:grid-cols-2 gap-8">
+                  {featuredArticles.map((article) => (
+                    <Card key={article.id} className="overflow-hidden hover-lift bg-muted/30">
+                      <div className="w-full aspect-[16/9] bg-white flex items-center justify-center overflow-hidden rounded-xl shadow-md">
+                        {article.image && (
+                          <img
+                            src={article.image}
+                            alt={article.title}
+                            className="object-cover w-full h-full rounded-xl transition-transform duration-300 hover:scale-105"
+                          />
+                        )}
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center space-x-4 mb-4">
+                          <Badge className={getCategoryColor(article.category)}>
+                            {article.category}
+                          </Badge>
+                          <div className="flex items-center text-sm text-muted-foreground">
+                            <Calendar className="w-4 h-4 mr-1" />
+                            {formatDate(article.date)}
+                          </div>
                         </div>
-                        <span className="bg-cyan-400/20 text-cyan-400 px-3 py-1 rounded-full text-xs font-medium uppercase">
-                          Featured • {featuredArticle.category}
-                        </span>
+                        <h2 className="text-xl md:text-2xl font-bold mb-3">
+                          {article.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                          {article.summary}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            {article.readTime}
+                          </span>
+                          <Button className="bg-gradient-primary hover:shadow-glow">
+                            Read Full Story
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* News List */}
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">Recent Updates</h2>
+            <div className="space-y-6 max-w-3xl mx-auto">
+              {regularArticles.map((article) => (
+                <Card key={article.id} className="hover-lift group bg-white/80 border-0 shadow-md rounded-xl">
+                  <CardHeader className="p-6 pb-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Badge className={getCategoryColor(article.category) + ' text-xs px-3 py-1 rounded-full font-semibold'}>
+                        {article.category}
+                      </Badge>
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {formatDate(article.date)}
                       </div>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-                      {featuredArticle.title}
-                    </h2>
-                    <p className="text-gray-300 mb-6 leading-relaxed">
-                      {featuredArticle.excerpt}
+                    <CardTitle className="text-lg group-hover:text-primary transition-colors font-bold">
+                      {article.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6 pt-0">
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                      {article.summary}
                     </p>
-                    <div className="flex items-center text-cyan-400 font-medium hover:text-cyan-300 transition-colors duration-300">
-                      <span>Read Full Article</span>
-                      <ArrowRight className="h-4 w-4 ml-1" />
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        {article.readTime}
+                      </span>
+                      <Button variant="ghost" size="sm" className="group-hover:text-primary font-semibold">
+                        Read More
+                        <ExternalLink className="ml-1 w-3 h-3" />
+                      </Button>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-        )}
-
-        {/* News Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {regularArticles.map((article) => {
-            const IconComponent = getCategoryIcon(article.category);
-            return (
-              <Link key={article.id} to={`/news/${article.id}`}>
-                <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group hover:transform hover:scale-105 cursor-pointer relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative z-10">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-cyan-400/90 text-gray-900 px-3 py-1 rounded-full text-xs font-medium uppercase">
-                          {article.category}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center mb-4">
-                        <IconComponent className="h-5 w-5 text-cyan-400 mr-2" />
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 text-cyan-400 mr-2" />
-                          <span className="text-gray-300 text-sm">{article.date}</span>
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-300 mb-6 leading-relaxed line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                      <div className="flex items-center text-cyan-400 text-sm font-medium">
-                        <span>Read More</span>
-                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* No Results */}
-        {filteredArticles.length === 0 && (
-          <div className="text-center py-16">
-            <Search className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">No articles found</h3>
-            <p className="text-gray-500">Try adjusting your search or filter criteria</p>
-          </div>
-        )}
-
-        {/* Industry Insights */}
-        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-500/5"></div>
-          <div className="relative z-10">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                Industry Insights
-              </h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Explore the latest trends and developments in humanoid robotics and AI technology.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-cyan-400/30 transition-all duration-300 group">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Brain className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">AI Advancements</h3>
-                <p className="text-gray-300 text-sm">
-                  Latest breakthroughs in machine learning and neural networks for robotics.
-                </p>
-              </div>
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-cyan-400/30 transition-all duration-300 group">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Users className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Market Trends</h3>
-                <p className="text-gray-300 text-sm">
-                  Industry analysis and market predictions for humanoid robotics adoption.
-                </p>
-              </div>
-              <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-cyan-400/30 transition-all duration-300 group">
-                <div className="bg-cyan-400/10 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                  <Zap className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Innovation Hub</h3>
-                <p className="text-gray-300 text-sm">
-                  Research collaborations and technological partnerships shaping the future.
-                </p>
-              </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Newsletter Signup - improved visibility */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <Card className="max-w-2xl mx-auto bg-gradient-tech border-0 shadow-xl">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold mb-4">Stay in the Loop</h3>
+                <p className="text-muted-foreground mb-6">
+                  Subscribe to our newsletter and never miss an update about our 
+                  progress in humanoid robotics.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-4 py-2 rounded-lg border border-border bg-background"
+                  />
+                  <Button className="bg-primary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-orange-600 transition-colors">
+                    Subscribe
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-4">
+                  We respect your privacy. Unsubscribe at any time.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </div>
-    </div>
+    </Layout>
   );
 };
 
