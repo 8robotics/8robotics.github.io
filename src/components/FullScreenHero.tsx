@@ -5,7 +5,7 @@ const FullScreenHero = () => {
     <section
       className="relative w-full h-screen flex items-end justify-start overflow-hidden bg-cover bg-center"
       style={{
-        backgroundImage: 'url("/hero-image.jpg")',
+        backgroundImage: 'url("/hero-image.png")',
       }}
     >
       <div className="absolute inset-0 bg-black/40" />

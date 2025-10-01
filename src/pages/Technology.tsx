@@ -176,7 +176,7 @@ const Technology = () => {
               </div>
             </div>
             {/* Electronics 3D Viewer row after electronics card */}
-            <div className="w-full mt-8 mb-20">
+            {/* <div className="w-full mt-8 mb-20">
               <div className="flex gap-2 mb-4 justify-center">
                 <button
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors ${viewerTab === 'driver' ? 'bg-purple-600 text-white' : 'bg-white/70 text-purple-600'}`}
@@ -203,7 +203,7 @@ const Technology = () => {
                   environment-image="neutral"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="border-b-2 border-purple-200 mb-20" />
 
             {/* AI Control Systems */}

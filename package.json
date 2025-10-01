@@ -10,7 +10,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "vite build && copyfiles CNAME dist --verbose && echo Done copying CNAME || echo ERROR: Failed to copy CNAME",
+    "predeploy": "vite build && copyfiles CNAME dist --verbose && cp dist/index.html dist/404.html && echo Done copying CNAME and 404.html || echo ERROR: Failed to copy files",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -70,7 +70,7 @@ const DetailsSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="p-3 rounded-lg bg-gray-50/80 backdrop-blur-sm border border-gray-100">
-                      <span className="font-semibold text-base">Height:</span> 150 cm
+                      <span className="font-semibold text-base">Height:</span> 130 cm
                     </div>
                   </div>
                 </div>
