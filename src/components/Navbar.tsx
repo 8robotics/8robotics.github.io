@@ -6,10 +6,10 @@ const Navbar = () => {
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "";
   const navOptions = [
-    { name: "TECHNOLOGY", url: "/technology" },
+    // { name: "TECHNOLOGY", url: "/technology" },
     { name: "ABOUT", url: "/about" },
-    { name: "NEWS", url: "/news" },
-    { name: "CAREERS", url: "/careers" },
+    // { name: "NEWS", url: "/news" },
+    // { name: "CAREERS", url: "/careers" },
     { name: "CONTACT", url: "/contact" },
   ];
 

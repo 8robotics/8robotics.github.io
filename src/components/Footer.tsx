@@ -16,9 +16,9 @@ function Footer() {
             },
           ]}
           mainLinks={[
-            { href: "/technology", label: "Technology" },
+            // { href: "/technology", label: "Technology" },
             { href: "/about", label: "About" },
-            { href: "/news", label: "News" },
+            // { href: "/news", label: "News" },
             { href: "/contact", label: "Contact" },
           ]}
           legalLinks={[]}

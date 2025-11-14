@@ -65,13 +65,13 @@ const Index = () => {
       <main className="space-y-4 sm:space-y-8">
         <FullScreenHero />
         <Hero />
-        <HumanoidSection />
+        {/* <HumanoidSection /> */}
         <SpecsSection />
         <DetailsSection />
         <ImageShowcaseSection />
         <Features />
         {/* <Testimonials /> */}
-        <Newsletter />
+        {/* <Newsletter /> */}
         {/* <MadeByHumans /> */}
       </main>
       <Footer />
