@@ -1,177 +1,213 @@
-
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  // Get current path for active tab highlight
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "";
   const navOptions = [
-  { name: 'Home', url: '/' },
-  { name: 'Technology', url: '/technology' },
-  { name: 'About', url: '/about' },
-  { name: 'News', url: '/news' },
-  { name: 'Careers', url: '/careers' },
-  { name: 'Contact', url: '/contact' },
+    { name: "TECHNOLOGY", url: "/technology" },
+    { name: "ABOUT", url: "/about" },
+    { name: "NEWS", url: "/news" },
+    { name: "CAREERS", url: "/careers" },
+    { name: "CONTACT", url: "/contact" },
   ];
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar if scrolling up or at the top
+      if (currentScrollY < lastScrollY || currentScrollY < 50) {
+        setIsNavVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Hide navbar if scrolling down and past threshold
+        setIsNavVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > 20);
     };
     
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [lastScrollY]);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // Prevent background scrolling when menu is open
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
+    const willOpen = !isMenuOpen;
+    setIsMenuOpen(willOpen);
+    document.body.style.overflow = willOpen ? "hidden" : "";
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    
-    // Close mobile menu if open
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (isMenuOpen) {
       setIsMenuOpen(false);
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
   };
+
+  /* ────────────────────── GLASS-MORPHIC CLASSES ────────────────────── */
+  const glassBase =
+    "bg-transparent bg-gradient-to-b from-black/50 to-black/10 text-white transition-all duration-300 will-change-[background-color] ";
+
+  const glassScrolled = cn(glassBase, "shadow-lg");
+
+  const isHomePage = currentPath === "/";
+  const glassTop = isHomePage ? "text-white transition-all duration-300 will-change-[background-color]" : cn(glassBase, "shadow-lg");
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300 bg-transparent"
+        "fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-center transition-all duration-300 will-change-transform overflow-hidden",
+        isScrolled ? glassScrolled : glassTop,
+        !isNavVisible && "-translate-y-full"
       )}
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a 
-          href="#" 
+        {/* ───── LOGO ───── */}
+        <a
+          href="/"
           className="flex items-center"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="Pulse Robot"
+          aria-label="8Robotics"
         >
-          <span
-            className="flex items-center space-x-2 px-2 py-1 rounded-lg"
-            style={{
-              background: 'linear-gradient(120deg, rgba(255,255,255,0.35) 60%, rgba(255,255,255,0.12) 100%)',
-              border: '1px solid rgba(255,255,255,0.18)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-            }}
+          <div
+            className="flex items-center space-x-2"
           >
-            <img 
-              src="/logo.svg" 
-              alt="8Robotics Logo" 
-              className="h-8 sm:h-10 w-auto transition-all duration-300" 
-              style={{ minWidth: 32 }}
+            <img
+              src="/logo.svg"
+              alt="8Robotics Logo"
+              className="h-14 w-auto"
             />
             <span
-              className="font-extrabold text-base sm:text-lg tracking-tight text-pulse-500"
-              style={{ fontFamily: 'Poppins, Montserrat, Inter, Arial, sans-serif', letterSpacing: '-1px' }}
+              className="font-extrabold text-base sm:text-lg tracking-tight font-machina"
+              style={{letterSpacing: '-1px' }}
             >
               8Robotics
             </span>
-          </span>
+          </div>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-2">
+        {/* ───── DESKTOP NAV ───── */}
+        <nav className="hidden items-center space-x-1 md:flex">
           {navOptions.map(({ name, url }) => (
             <a
               key={name}
               href={url}
               className={cn(
-                "nav-link px-2 py-1 rounded-lg font-semibold text-base flex items-center",
-                currentPath === url && "ring-2 ring-pulse-500 ring-offset-2 ring-offset-white shadow-pulse"
+                "rounded-md px-4 py-2 text-base font-medium transition-all duration-200 font-machina",
+                "hover:bg-white/10"
               )}
-              style={{
-                minHeight: 36,
-                marginLeft: 8,
-                background: 'linear-gradient(120deg, rgba(255,255,255,0.35) 60%, rgba(255,255,255,0.12) 100%)',
-                border: '1px solid rgba(255,255,255,0.18)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: currentPath === url ? '0 0 16px 4px #FE5C02, 0 2px 8px rgba(0,0,0,0.06)' : '0 2px 8px rgba(0,0,0,0.06)',
-                color: '#222',
-              }}
             >
               {name}
             </a>
           ))}
         </nav>
 
-        {/* Mobile menu button - increased touch target */}
-        <button 
-          className="md:hidden text-white p-3 focus:outline-none rounded-full bg-gray-800 shadow-lg border border-gray-700 backdrop-blur-lg" 
-          style={{ minWidth: 48, minHeight: 48, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}
+        {/* ───── MOBILE TOGGLE ───── */}
+        <button
           onClick={toggleMenu}
+          className={cn(
+            "md:hidden rounded-full p-2 transition-all",
+            isScrolled ? "bg-white/10" : "bg-white/20"
+          )}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Backdrop Overlay */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm md:hidden transition-opacity duration-300"
-          onClick={() => {
-            setIsMenuOpen(false);
-            document.body.style.overflow = '';
-          }}
-          aria-label="Close menu backdrop"
-        />
-      )}
+      {/* ───── MOBILE MENU (PREMIUM ANIMATED GLASS PANEL) ───── */}
+{isMenuOpen && (
+  <>
+    {/* Animated Backdrop */}
+    <div
+      className="fixed inset-0 z-30 bg-black/40 backdrop-blur-xl transition-opacity duration-300 md:hidden"
+      onClick={toggleMenu}
+    />
 
-      {/* Mobile Navigation - improved for better touch experience */}
-      <div className={cn(
-        "fixed top-0 left-0 right-0 z-40 bg-white flex flex-col pt-6 px-4 md:hidden transition-transform duration-300 ease-in-out shadow-lg",
-        isMenuOpen ? "translate-y-0" : "-translate-y-full pointer-events-none"
+    {/* Sliding Menu Panel with Staggered Animations */}
+    <div
+      className={cn(
+        "fixed left-0 right-0 top-0 z-40 flex flex-col overflow-hidden",
+        "bg-gradient-to-b from-zinc-900/95 via-black/90 to-black/85",
+        "backdrop-blur-2xl shadow-2xl",
+        "border-b border-white/5",
+        "transition-all duration-500 ease-out md:hidden",
+        isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       )}
-        style={{ borderBottomLeftRadius: 24, borderBottomRightRadius: 24 }}
-      >
-        <div className="flex justify-end">
-          <button
-            className="p-3 rounded-full text-gray-700 focus:outline-none bg-gray-100 hover:bg-gray-200"
-            onClick={toggleMenu}
-            aria-label="Close menu"
-            style={{ minWidth: 48, minHeight: 48 }}
-          >
-            <X size={28} />
-          </button>
-        </div>
-        <nav className="flex flex-col space-y-4 items-center mt-4 mb-8">
-          {navOptions.map(({ name, url }) => (
-            <a
-              key={name}
-              href={url}
-              className={cn(
-                "text-lg font-medium py-3 px-6 w-full text-center rounded-lg bg-gray-800 text-white border border-gray-700 hover:bg-gray-700 active:bg-gray-700 transition-colors",
-                currentPath === url && "ring-2 ring-pulse-500 ring-offset-2 ring-offset-white shadow-pulse"
-              )}
-              style={{ minHeight: 48, boxShadow: currentPath === url ? '0 0 16px 4px #FE5C02, 0 4px 24px rgba(0,0,0,0.08)' : undefined }}
-              onClick={() => {
-                setIsMenuOpen(false);
-                document.body.style.overflow = '';
-              }}
-            >
-              {name}
-            </a>
-          ))}
-        </nav>
+      style={{
+        borderBottomLeftRadius: 40,
+        borderBottomRightRadius: 40,
+        paddingTop: "max(env(safe-area-inset-top, 1.5rem), 2rem)",
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+      }}
+    >
+      {/* Header: Logo + Close */}
+      <div className="flex items-center justify-between px-6 pt-4 pb-6">
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToTop();
+            toggleMenu();
+          }}
+          className="flex items-center"
+        >
+          <img src="/logo.svg" alt="8Robotics" className="h-10 w-auto" />
+        </a>
+        <button
+          onClick={toggleMenu}
+          className="rounded-full bg-white/10 p-3 backdrop-blur-md transition-all hover:scale-110 hover:bg-white/20"
+          aria-label="Close menu"
+        >
+          <X size={26} className="text-white" />
+        </button>
       </div>
+
+      {/* Animated Nav Links */}
+      <nav className="flex flex-col px-6 pb-12 space-y-3">
+        {navOptions.map(({ name, url }, index) => (
+          <a
+            key={name}
+            href={url}
+            onClick={(e) => {
+              if (url === "/") {
+                e.preventDefault();
+                scrollToTop();
+              }
+              toggleMenu();
+            }}
+            className={cn(
+              "block rounded-2xl py-5 text-center text-lg font-semibold tracking-wide transition-all duration-300",
+              "bg-white/5 hover:bg-white/10 backdrop-blur-sm",
+              "border border-white/10",
+              "transform transition-transform duration-500 ease-out",
+              currentPath === url &&
+                "bg-white/20 shadow-xl ring-2 ring-white/40 scale-105",
+              isMenuOpen
+                ? `translate-y-0 opacity-100`
+                : `-translate-y-4 opacity-0`
+            )}
+            style={{
+              animationDelay: `${index * 100 + 200}ms`,
+              animation: isMenuOpen
+                ? `slideDown 0.5s ease-out forwards`
+                : undefined,
+            }}
+          >
+            {name}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </>
+)}
     </header>
   );
 };
