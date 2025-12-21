@@ -11,6 +11,11 @@ import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 
+// NEW imports
+import Actuator from "./pages/products/actuator";
+import Driver from "./pages/products/driver";
+import Iliya from "./pages/products/iliya";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -26,6 +31,12 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
+
+          {/* PRODUCTS */}
+          <Route path="/products/actuator" element={<Actuator />} />
+          <Route path="/products/driver" element={<Driver />} />
+          <Route path="/products/iliya" element={<Iliya />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

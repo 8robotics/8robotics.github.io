@@ -64,12 +64,12 @@ const Index = () => {
       <Navbar />
       <main className="space-y-4 sm:space-y-8">
         <FullScreenHero />
-        <Hero />
+        {/* <Hero /> */}
         {/* <HumanoidSection /> */}
-        <SpecsSection />
-        <DetailsSection />
-        <ImageShowcaseSection />
-        <Features />
+        {/* <SpecsSection /> */}
+        {/* <DetailsSection /> */}
+        {/* <ImageShowcaseSection /> */}
+        {/* <Features /> */}
         {/* <Testimonials /> */}
         {/* <Newsletter /> */}
         {/* <MadeByHumans /> */}
