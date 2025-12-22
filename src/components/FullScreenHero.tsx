@@ -85,13 +85,13 @@ const FullScreenHero = () => {
       </div>
 
       {/* Right Robot Image */}
-      <div className="absolute right-0 hidden lg:flex items-center justify-end px-8 md:px-16 lg:px-24">
+      {/* <div className="absolute right-0 hidden lg:flex items-center justify-end px-8 md:px-16 lg:px-24">
         <img
           src="/robot-white.png"
           alt="Robot"
           className="h-96 md:h-[28rem] lg:h-[32rem] object-contain opacity-90"
         />
-      </div>
+      </div> */}
     </section>
   );
 };

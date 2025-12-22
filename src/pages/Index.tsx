@@ -74,7 +74,7 @@ const Index = () => {
         {/* <Newsletter /> */}
         {/* <MadeByHumans /> */}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

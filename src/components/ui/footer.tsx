@@ -31,24 +31,26 @@ export function Footer({
   copyright,
 }: FooterProps) {
   return (
-    <footer className="pb-6 pt-16 lg:pb-8 lg:pt-24">
-      <div className="px-4 lg:px-8">
-        <div className="md:flex md:items-start md:justify-between">
+    <footer className="bg-white border-t border-black/5 pb-12 pt-16 font-sans" 
+      style={{ fontFamily: 'InterVariable, Inter, ui-sans-serif, system-ui, -apple-system, sans-serif' }}>
+      <div className="px-8 md:px-24">
+        <div className="md:flex md:items-center md:justify-between">
           <a
             href="/"
-            className="flex items-center gap-x-2"
+            className="flex items-center gap-x-3 transition-opacity hover:opacity-80"
             aria-label={brandName}
           >
             {logo}
-            <span className="font-bold text-xl">{brandName}</span>
+            <span className="font-semibold text-xl tracking-tight text-black">{brandName}</span>
           </a>
-          <ul className="flex list-none mt-6 md:mt-0 space-x-3">
+          
+          <ul className="flex list-none mt-8 md:mt-0 space-x-4">
             {socialLinks.map((link, i) => (
               <li key={i}>
                 <Button
-                  variant="secondary"
+                  variant="ghost"
                   size="icon"
-                  className="h-10 w-10 rounded-full"
+                  className="h-10 w-10 rounded-full border border-black/10 hover:border-sky-500/50 hover:bg-sky-50 hover:text-sky-500 transition-all"
                   asChild
                 >
                   <a href={link.href} target="_blank" aria-label={link.label}>
@@ -59,14 +61,15 @@ export function Footer({
             ))}
           </ul>
         </div>
-        <div className="border-t mt-6 pt-6 md:mt-4 md:pt-8 lg:grid lg:grid-cols-10">
-          <nav className="lg:mt-0 lg:col-[4/11]">
-            <ul className="list-none flex flex-wrap -my-1 -mx-2 lg:justify-end">
+
+        <div className="border-t border-black/10 mt-10 pt-10 lg:grid lg:grid-cols-10 items-start">
+          <nav className="lg:col-[4/11]">
+            <ul className="list-none flex flex-wrap -my-1 -mx-4 lg:justify-end">
               {mainLinks.map((link, i) => (
-                <li key={i} className="my-1 mx-2 shrink-0">
+                <li key={i} className="my-1 mx-4 shrink-0">
                   <a
                     href={link.href}
-                    className="text-sm text-primary underline-offset-4 hover:underline"
+                    className="text-xs uppercase tracking-[0.2em] font-medium text-black/60 hover:text-sky-500 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -74,13 +77,14 @@ export function Footer({
               ))}
             </ul>
           </nav>
-          <div className="mt-6 lg:mt-0 lg:col-[4/11]">
-            <ul className="list-none flex flex-wrap -my-1 -mx-3 lg:justify-end">
+
+          <div className="mt-8 lg:mt-4 lg:col-[4/11]">
+            <ul className="list-none flex flex-wrap -my-1 -mx-4 lg:justify-end">
               {legalLinks.map((link, i) => (
-                <li key={i} className="my-1 mx-3 shrink-0">
+                <li key={i} className="my-1 mx-4 shrink-0">
                   <a
                     href={link.href}
-                    className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+                    className="text-[13px] text-black/40 hover:text-black transition-colors"
                   >
                     {link.label}
                   </a>
@@ -88,9 +92,10 @@ export function Footer({
               ))}
             </ul>
           </div>
-          <div className="mt-6 text-sm leading-6 text-muted-foreground whitespace-nowrap lg:mt-0 lg:row-[1/3] lg:col-[1/4]">
-            <div>{copyright.text}</div>
-            {copyright.license && <div>{copyright.license}</div>}
+
+          <div className="mt-10 text-[13px] leading-6 text-black/45 whitespace-nowrap lg:mt-0 lg:row-[1/3] lg:col-[1/4]">
+            <div className="font-medium text-black/60">{copyright.text}</div>
+            {copyright.license && <div className="mt-1 opacity-70">{copyright.license}</div>}
           </div>
         </div>
       </div>
